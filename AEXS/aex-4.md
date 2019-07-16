@@ -61,19 +61,19 @@ This is especially beneficial for mobile wallet users as they can simply click o
 
 3. Sign and Broadcast
 
-    URI: `aeternity:<transaction>/<network_id>/<label>?return=<txId/tx>&callback=<url>`
+    URI: `aeternity:<transaction>?return=<txId/tx>&callback=<url>`
 
-    This URI scheme enables users to sign(and broadcast) the transaction using deep lining enabled user wallet.
+    This URI scheme enables users to sign(and broadcast) the transaction using deep lining enabled user wallet. The encoding and serialization of transactions will be handled as described [here](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-draft_data_serialization.md).
 
-    1. The user generates the transaction to be signed
-    2. Creates the URI substituting `transaction` and `network_id` with their respective value, `label` a human-readable text regarding the transaction and provides the query param `return` which indicates the return value type in the callback URL. It can contain only two possible values of string type:
+    1. The user generates the transaction to be signed and serializes as per the [specs](https://github.com/aeternity/AEXs/blob/master/AEXS/aex-draft_data_serialization.md).
+    2. Creates the URI substituting `transaction` with the one created in the previous step and provides the query param `return` which indicates the return value type in the callback URL. Currently, it can contain only two possible values of string type:
         - `txId`: which indicates that the wallet needs to broadcast the transaction and return the transaction id
         - `tx`: means that the callback URL expects a signed transaction back.
-    3. And at last, substitutes the query param `url` which contains a callback URL that accepts a transaction id under `txId` query param and signed transaction output under `tx` query param.
+    3. And at last, substitutes the query param `url` which contains a callback URL that accepts a transaction id under `txId` query param or signed transaction output under `tx` query param.
 
     #### Example
 
-    `aeternity:tx_+E0MAaEBK4bq9XiZ/0QVdOa8Hs9V18v6dGZYIa8XXNYFpQh6yq6hAR8To7CL8AFABmKmi2nYdfeAPOxMCGR/btXYTHiXvVCjCoJOIAADgFcJyZ8=/ae_uat/sample_tx?return=tx&callback=https://myaeshop.com/verify`
+    `aeternity:?return=tx&callback=https://myaeshop.com/verify`
 
 ## Reference
 
